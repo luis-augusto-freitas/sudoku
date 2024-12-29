@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Salsa&display=swap');
+        
+        body{
+            background-color: #fafafa;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: center; /* Centraliza verticalmente */
+            margin: 0; /* Remove margens padrão */
+            overflow: hidden;
+            font-family: "Raleway";
+        }
+      
+        div.malha{
+            width: 498px;
+            height: 408px;
+            
+        }
+        h1{
+            font-family: "Salsa";
+            color: #262626;
+            font-size: 60px;
+        }
+        p{
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            
+        }
+        p.dificuldade{
+            font-family: "Raleway";
+            color: #262626;
+            font-size: 20px;
+            transform: rotate(-90deg);
+        }
+
+        #tudo {
+            
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items:center;
+            justify-content: center;
+            background-color: #DDF0E7;
+            padding: 12px;
+            width: auto;
+            height: 486px;
+            border-radius: 16px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1>Sudoku</h1>
+    <div id="tudo">
+        
+        <div class="seletor">
+            <div class="seletor-de-dificuldade">
+                <p class="dificuldade">que dificuldade..........................................................</p>
+                <div class="niveis">
+                    <div class="muito-facil">
+                    </div>
+                    <div class="facil"></div>
+                    <div class="medio"></div>
+                    <div class="dificil"></div>
+                    <div class="muito-dificil"></div>
+                </div>
+            </div>
+        </div>
+        <div class="malha"></div>
+    </div>    
+</body>
+</html>
