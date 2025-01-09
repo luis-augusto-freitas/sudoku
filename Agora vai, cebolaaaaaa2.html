@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Salsa&display=swap');
+        
+        body {
+            background-color: #fafafa;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            font-family: "Raleway";
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        #tudo {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #DDF0E7;
+            padding: 12px;
+            width: 744px;
+            height: 462px;
+            border-radius: 16px;
+        }
+        div.seletor {
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            justify-content: flex-end;
+            width: 77px;
+            height: 476px;
+        }
+
+        h1 {
+            font-family: "Salsa";
+            color: #262626;
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        p.dificuldade {
+            transform: rotate(-90deg);
+            transform-origin: center;
+            margin-right: 39px;
+            margin-bottom: -44px;
+            font-family: "Raleway";
+            font-weight: normal;
+            font-size: 14px;
+            color: #262626;
+        }
+
+        div.niveis {
+            margin-top: -220px;
+            width: auto;
+            height: auto;
+            align-items: last baseline;
+        }
+
+        .btn-gerar {
+            transform: rotate(-90deg);
+            border: 0px;
+            border-radius: 20px;
+            background-color: #17A398;
+            width: 60px;
+            height: 44px;
+            margin-left: 37px;
+            margin-bottom: 8px;
+            box-shadow: -4px 0px 4px 0px rgb(0, 0, 0, 25%);
+        }
+
+        .btn-muito-facil, .btn-facil, .btn-medio, .btn-dificil, .btn-muito-dificil {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            margin-left: 47px;
+            margin-top: 8px;
+            border: 0;
+            border-radius: 12px;
+            background-color: #CECECE;
+        }
+
+        div.botoes-adicionais {
+
+            display: flex;
+            flex-direction: column;
+            align-items: last baseline;
+            justify-content: flex-start;
+            margin-top: 24px;
+            margin-bottom: 6px;
+            padding-bottom: 12px;
+            padding-left: 37px;
+            height: 128px;
+            width: 77px;
+            gap: 4px;
+        }
+
+        .btn-adicional {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border: 0;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .btn-dica {
+            background-color: #FFDD67;
+            transform: rotate(-90deg);
+            box-shadow: -4px 0px 4px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn-refazer {
+            background-color: #235789;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn-limpar {
+            background-color: #F71735;
+            transform: rotate(-90deg);
+            box-shadow: -4px 0px 4px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        div.malha {
+            position: absolute;
+            top: 39px;
+            left: 87px;
+            width: 594px;
+            height:408px;
+            flex-shrink: 0;
+        }
+
+        .material-symbols-outlined {
+            color: white;
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+        .lightbulb {
+            color: #262626;
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+</head>
+<body>
+    <h1>Sudoku</h1>
+    <div id="tudo">
+        
+         <div class="seletor">
+            <p class="dificuldade">Dificuldade</p>
+            <div class="niveis">
+                <button class="btn-gerar">
+                    <span class="material-symbols-outlined">check_circle</span>
+                </button>
+                <button class="btn-muito-dificil">
+                    <p class="triste" style="font-size: 28px; transform: rotate(-90deg);">&#128557;</p>
+                </button>
+                <button class="btn-dificil">
+                    <p class="triste" style="font-size: 28px; transform: rotate(-90deg);">&#128532;</p>
+                </button>
+                <button class="btn-medio">
+                    <p class="serio" style="font-size: 28px; transform: rotate(-90deg);">&#128528;</p>  
+                </button>
+                <button class="btn-facil">
+                    <p class="sorrindo" style="font-size: 28px; transform: rotate(-90deg);">&#128578;</p>
+                </button>
+                <button class="btn-muito-facil">
+                    <p class="sorrindo-muito" style="font-size: 28px; transform: rotate(-90deg);">&#128516;</p> 
+                </button>
+            </div>
+            <div class="botoes-adicionais">
+                <button class="btn-adicional btn-limpar">
+                    <span class="material-symbols-outlined">mop</span>
+                </button>
+                <button class="btn-adicional btn-refazer">
+                    <span class="material-symbols-outlined">autorenew</span>
+                </button>
+                <button class="btn-adicional btn-dica">
+                    <span class="material-symbols-outlined lightbulb">lightbulb</span>
+                </button>
+            </div>
+        </div>
+        <div class="malha" style="row-gap: 12px; display: flex; flex-direction: column;">
+            <div class="quadrado1" style="height: 128px; row-gap: 4px; display: flex; flex-direction: column;">
+                <div class="linha1" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio1" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        
+                    </div>
+                    <div class="trio2" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                    <div class="trio3" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                </div>
+                <div class="linha2" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio1" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                    <div class="trio2" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                    <div class="trio3" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                </div>
+                <div class="linha3" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio1" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                    <div class="trio2" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                    <div class="trio3" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                </div>
+            </div>
+            <div class="quadrado2" style="height: 128px; row-gap: 4px; display: flex; flex-direction: column;">
+                <div class="linha1" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio1" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                    <div class="trio2" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                    <div class="trio3" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                </div>
+                <div class="linha2" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio1" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                    <div class="trio2" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                    <div class="trio3" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                </div>
+                <div class="linha3" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio1" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                    <div class="trio2" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                    <div class="trio3" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                </div>
+            </div>
+            <div class="quadrado3" style="height: 128px; row-gap: 4px; display: flex; flex-direction: column;">
+                <div class="linha1" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio1" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                    <div class="trio2" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                    <div class="trio3" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                </div>
+                <div class="linha2" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio1" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                    <div class="trio2" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                    <div class="trio3" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                </div>
+                <div class="linha3" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio1" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                    <div class="trio2" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+
+                    </div>
+                    <div class="trio3" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
