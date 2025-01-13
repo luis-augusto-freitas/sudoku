@@ -147,24 +147,6 @@
             height:408px;
             flex-shrink: 0;
         }
-        div.cronometro{
-            display: flex;
-            width: 77px;
-            height: 470px;
-            align-items: first baseline;
-            position: relative;
-        }
-        .cronometro2{
-            flex-direction: column;
-            display: flex;
-            position: relative;
-            top: 53px;
-            left:-17px;
-            flex-shrink: 0;
-            width:  96px;
-            height: 62px;
-            transform: rotate(90deg)
-        }
         .material-symbols-outlined {
             color: white;
             font-variation-settings:
@@ -182,10 +164,23 @@
             'opsz' 24
         }
         .zeroZero{
-            margin-top: 10px;
             font-size: 36px;
             width: 96px;
             height: 42px;
+        }
+        .btns-adicionais{
+            width: 168px;
+            height: 60px;
+        }
+        .cronometro{
+            width: 77px;
+            height: 434px;
+            padding-top: 36px;
+        }
+        div.cronometro2{
+            width: 96px;
+            height: 62px;
+            transform: rotate(90deg);
         }
     </style>
 </head>
@@ -387,12 +382,9 @@
                 </div>
             </div>
         </div>
-        <div class="cronometro">
-            <div class="cronometro2">
-                <p style="color: #262626; width: auto; height: auto; margin: 0px;">Muito Difícil</p>
-                <span class="zeroZero">00:00</span>
-                
-            </div>
+            <div class="cronometro">
+                <div class="cronometro2">
+                </div>
         </div>
     </div>
 </body>
