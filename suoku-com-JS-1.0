@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Salsa&display=swap');
+        
+        body {
+            background-color: #fafafa;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            font-family: "Raleway";
+            font-size: 14px;
+            font-weight: 500;
+        }
+        #tudo {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #DDF0E7;
+            padding: 8px;
+            padding-right: 0px;
+            padding-left: 0px;
+            width: 768px;
+            height: 470px;
+            border-radius: 16px;
+        }
+        h1 {
+            font-family: "Salsa";
+            color: #262626;
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        .seletor-de-dificuldade{
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            width: 77px;
+            height: 300px;
+        }
+        .botoes-adicionais{
+            position: absolute;
+            align-self: flex-end;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: flex-end;
+            width: 77px;
+            height: 128px;
+        }
+        .dificuldade{
+            transform: translate(-19px,255px) rotate(-90deg);
+            position: absolute;
+            margin: 0;
+            width: 74px;
+            height: 16px;
+        }
+        #niveis{
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-self: flex-end;
+            align-items: center;
+            justify-content: flex-end;
+            box-sizing: border-box;
+            width: 44px;
+            height: 300px;
+        }
+        #Muito-Facil, #Facil, #Medio, #Dificil,#Muito-Dificil{
+            width: 40px;
+            height: 40px;
+            background-color: #CECECE;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .btn-gerar{
+            width: 44px;
+            height: 60px;
+            background-color: #17A398;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 4px 4px 0px rgb(0, 0, 0, 25%);
+        }
+        .botao-regerar, .botao-limpar, .botao-dica{
+            width: 40px;
+            height: 40px;
+
+            border-radius: 20px;
+            box-shadow: 0px 4px 4px 0px rgb(0, 0, 0, 25%);
+        }
+        .botao-regerar{
+            background-color: #235789;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .botao-limpar{
+            background-color: #F71735;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .botao-dica{
+            background-color: #FFDD67;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .limpar{
+            color: #ffffff;
+            transform: rotate(-90deg);
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+        .regerar{
+            color: #ffffff;
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+        .dica{
+            transform: rotate(-90deg);
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+        .gerar{
+            color: #ffffff;
+            transform: rotate(-90deg);
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+        .seletor{
+            display: flex;
+            padding-bottom: 12px;
+            padding-top: 12px;
+            align-self: center;
+            width: 77px;
+            height: 452px;
+        }
+        div.malha {
+            position: absolute;
+            top: 39px;
+            left: 87px;
+            width: 594px;
+            height:408px;
+            flex-shrink: 0;
+        }
+        .logout {
+            color: #ffffff;
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+        .pencil-writing{
+            color: #262626;
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+        .zeroZero{
+            transform: translate(-27px, 11px) rotate(90deg);
+            margin: 0px;
+            font-size: 36px;
+            width: 96px;
+            height: 42px;
+        }
+        .btns-adicionais{
+            flex-direction: column;
+            display: flex;
+            gap: 12px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            width:  60px;
+            height: 168px;
+        }
+        .btn-escrever{
+            box-shadow: 4px 0px 4px 0px rgb(0, 0, 0, 25%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: rotate(90deg);
+            background-color: #FFFFFF;
+            border-radius: 50px;
+            width: 60px;
+            height: 60px;
+        }
+        .btn-desistir{
+            box-shadow: 4px 0px 4px 0px rgb(0, 0, 0, 25%);
+            display: flex;            
+            justify-content: center;
+            align-items: center;
+            transform: translate(-10px,9.92px) rotate(90deg);
+            background-color: #F71735;
+            border-radius: 50px;
+            width: 80px;
+            height: 60px;
+        }
+        div.cronometro{
+            flex-direction: column;
+            display: flex;
+            gap: 24px;
+            width: 77px;
+            height: 398px;
+            padding-top: 36px;
+            padding-bottom: 36px;
+        }
+        div.cronometro2{
+            width: 62px;
+            height: 96px;
+        }
+        p.TextoNivel{
+            transform: translate(13.5px, 30.5px) rotate(90deg);
+            color: #262626;
+            font-family: "Raleway";
+            font-weight: normal;
+            font-size: 14px;
+            width: 81px;
+            height: 16px;
+            margin: 0px;
+        }
+        .anotacoes{
+            display: flex;
+            flex-direction: column;
+            width: 68px;
+            height: 68px;
+            gap: 4px;
+        }
+        .anotacoes1{
+            display: flex;
+            flex-direction: row;
+            width: 68px;
+            height: 32px;
+            gap: 4px;
+        }
+        .anotacoes2{
+            display: flex;
+            flex-direction: row;
+            width: 68px;
+            height: 32px;
+            gap: 4px;
+        }
+        .q1, .q2, .q3, .q4{
+            background-color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+        }
+        input.anotacoes{
+            border: 0;
+            border-radius: 3px;
+            width: 25px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sudoku</h1>
+    <div id="tudo">
+         <div class="seletor">
+            
+            <div class="seletor-de-dificuldade">
+                <div id="niveis" data-value="">
+                    <div class="btn-gerar">
+                    <span class="material-symbols-outlined gerar">check_circle</span>
+                    </div>
+                    <div class="child" id="Muito-Dificil" data-value="5">
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M27.72 20.7667C27.72 17.545 27.4066 14.9333 27.02 14.9333C26.6334 14.9333 26.32 17.545 26.32 20.7667C26.32 23.9883 26.6334 26.6 27.02 26.6C27.4066 26.6 27.72 23.9883 27.72 20.7667Z" fill="#65B1EF"/>
+                            <path d="M28 8.39996C28 3.76077 27.6239 -4.19617e-05 27.16 -4.19617e-05C26.6961 -4.19617e-05 26.32 3.76077 26.32 8.39996C26.32 13.0391 26.6961 16.8 27.16 16.8C27.6239 16.8 28 13.0391 28 8.39996Z" fill="#65B1EF"/>
+                            <path d="M28 14C28 6.26801 21.732 0 14 0C6.26801 0 0 6.26801 0 14C0 21.732 6.26801 28 14 28C21.732 28 28 21.732 28 14Z" fill="#FFDD67"/>
+                            <path d="M20.5333 8.07333C18.8533 8.72666 17.7333 10.3133 17.7333 14C17.7333 17.7333 18.8533 19.2733 20.5333 19.9267C21.42 20.2533 22.8667 19.7867 22.8667 19.7867C24.6867 19.18 25.2 19.2733 25.2 14C25.2 8.72667 24.6867 8.82 22.8667 8.21333C22.8667 8.21333 21.42 7.7 20.5333 8.07333Z" fill="#262626"/>
+                            <path d="M20.0667 9.80001C19.9267 9.75335 19.7867 9.80001 19.6934 9.89335C19.6934 9.89335 18.6667 10.8267 18.6667 14C18.6667 17.1733 19.6934 18.1067 19.6934 18.1067C19.74 18.2 19.9267 18.2 20.0667 18.2L20.3467 18.1067C20.4867 18.06 20.58 17.9667 20.58 17.8733V10.1267C20.58 10.0333 20.4867 9.89335 20.3467 9.89335L20.0667 9.80001Z" fill="white"/>
+                            <path d="M27.3 8.16663V4.9933C22.68 1.16663 17.9667 5.6933 13.3933 4.5733C13.3933 5.64663 14.56 6.71996 14.56 7.74663C18.9933 9.23996 22.68 4.33997 27.3 8.16663ZM27.3 19.8333V23.0066C22.68 26.8333 17.9667 22.3066 13.3933 23.4266C13.3933 22.3533 14.56 21.28 14.56 20.2533C18.9933 18.76 22.68 23.66 27.3 19.8333Z" fill="#65B1EF"/>
+                            <path d="M7.60665 9.94C9.00665 8.54 9.70665 6.58 9.51998 4.62C9.47331 4.34 10.5 4.2 10.5466 4.52667C10.7333 6.81334 9.93998 9.05334 8.30665 10.64C8.07331 10.92 7.41998 10.1267 7.60665 9.94ZM9.51998 23.3333C9.70665 21.3733 9.00665 19.4133 7.60665 18.0133C7.41998 17.8267 8.07331 17.0333 8.30665 17.2667C9.93998 18.8533 10.7333 21.14 10.5466 23.38C10.5466 23.8 9.51998 23.6133 9.51998 23.3333Z" fill="#917524"/>
+                            <path d="M13.2067 12.18C16.94 10.22 16.94 6.25332 13.2067 4.29332C13.02 4.19998 12.9267 4.43332 12.74 4.75998C14.28 6.71998 14.14 9.93998 12.74 11.7133C12.9267 11.9933 13.02 12.2733 13.2067 12.18ZM13.2067 23.7066C16.94 21.7466 16.94 17.78 13.2067 15.82C13.02 15.7266 12.9267 15.96 12.74 16.2866C14.28 18.2466 14.14 21.4666 12.74 23.24C12.9267 23.5666 13.02 23.8 13.2067 23.7066Z" fill="#262626"/>
+                        </svg>     
+                    </div>
+                    <div class="child" id="Muito-Dificil" data-value="4">
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M28 14C28 6.26801 21.732 0 14 0C6.26801 0 0 6.26801 0 14C0 21.732 6.26801 28 14 28C21.732 28 28 21.732 28 14Z" fill="#FFDD67"/>
+                            <path d="M12.32 17.0334C13.6733 16.38 15.4 17.22 16.1933 18.8534C16.94 20.4867 16.4733 22.3534 15.12 23.0067C14.2333 23.38 11.4333 17.4067 12.32 17.0334ZM12.32 10.9667C13.6733 11.62 15.4 10.78 16.1933 9.14671C16.94 7.51338 16.4733 5.64671 15.12 4.99338C14.2333 4.62004 11.4333 10.5934 12.32 10.9667Z" fill="#262626"/>
+                            <path d="M8.30669 18.34C9.84669 19.6 11.2467 22.6334 11.2467 24.64C11.2467 24.92 12.2734 24.9667 12.2734 24.64C12.2734 22.3534 10.7334 19.04 8.96002 17.5467C8.72669 17.3134 8.12002 18.1534 8.30669 18.34ZM8.30669 9.66002C9.84669 8.40002 11.2467 5.36669 11.2467 3.36003C11.2467 3.08002 12.2734 3.03336 12.2734 3.36003C12.2734 5.64669 10.7334 8.96002 8.96002 10.4534C8.72669 10.6867 8.12002 9.84669 8.30669 9.66002Z" fill="#917524"/>
+                            <path d="M20.72 9.98668C19.5533 12.5067 19.5533 15.4933 20.72 18.0133C21 18.62 22.68 17.8733 22.3533 17.22C21.56 15.54 21.28 13.0667 22.3533 10.7333C22.6333 10.1267 21.0467 9.33335 20.72 9.98668Z" fill="#262626"/>
+                        </svg>                                                        
+                    </div>
+                    <div class="child" id="Muito-Dificil" data-value="3">
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M28 14C28 6.26801 21.732 0 14 0C6.26801 0 0 6.26801 0 14C0 21.732 6.26801 28 14 28C21.732 28 28 21.732 28 14Z" fill="#FFDD67"/>
+                            <path d="M14.28 19.3667C14.28 18.078 13.2354 17.0333 11.9467 17.0333C10.658 17.0333 9.61337 18.078 9.61337 19.3667C9.61337 20.6553 10.658 21.7 11.9467 21.7C13.2354 21.7 14.28 20.6553 14.28 19.3667Z" fill="#262626"/>
+                            <path d="M14.28 8.63337C14.28 7.34471 13.2354 6.30004 11.9467 6.30004C10.658 6.30004 9.61337 7.34471 9.61337 8.63337C9.61337 9.92204 10.658 10.9667 11.9467 10.9667C13.2354 10.9667 14.28 9.92204 14.28 8.63337Z" fill="#262626"/>
+                            <path d="M21.4667 10.7801V17.2201C21.4667 17.9201 19.6 17.9201 19.6 17.2201V10.8267C19.6 10.0801 21.4667 10.0801 21.4667 10.7801Z" fill="#262626"/>
+                        </svg>                            
+                    </div>
+                    <div class="child" id="Muito-Dificil" data-value="2">
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M28 14C28 6.26801 21.732 0 14 0C6.26801 0 0 6.26801 0 14C0 21.732 6.26801 28 14 28C21.732 28 28 21.732 28 14Z" fill="#FFDD67"/>
+                            <path d="M13.8133 19.3667C13.8133 18.078 12.7686 17.0333 11.48 17.0333C10.1913 17.0333 9.14664 18.078 9.14664 19.3667C9.14664 20.6553 10.1913 21.7 11.48 21.7C12.7686 21.7 13.8133 20.6553 13.8133 19.3667Z" fill="#262626"/>
+                            <path d="M13.8133 8.63337C13.8133 7.34471 12.7686 6.30004 11.48 6.30004C10.1913 6.30004 9.14664 7.34471 9.14664 8.63337C9.14664 9.92204 10.1913 10.9667 11.48 10.9667C12.7686 10.9667 13.8133 9.92204 13.8133 8.63337Z" fill="#262626"/>
+                            <path d="M17.8733 8.12005C20.5333 11.9001 20.4866 16.1001 17.8733 19.8801C17.5466 20.3467 18.1066 20.7201 18.62 20.4401C20.4866 19.2734 22.2133 16.9867 22.2133 14.0001C22.2133 11.0134 20.5333 8.72672 18.62 7.56005C18.1066 7.28005 17.5466 7.65339 17.8733 8.12005Z" fill="#262626"/>
+                        </svg>                            
+                    </div>
+                    <div class="child" id="Muito-Dificil" data-value="1">
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 -1.19209e-07C21.7467 -1.19209e-07 28 6.25333 28 14C28 21.7467 21.7467 28 14 28C6.25333 28 0 21.7467 0 14C0 6.25333 6.25333 -1.19209e-07 14 -1.19209e-07Z" fill="#FFDD67"/>
+                            <path d="M16.8 6.06665C16.4267 6.06665 15.96 6.29999 15.82 6.90665C15.4933 8.53999 15.2133 10.92 15.2133 14C15.2133 17.08 15.54 19.46 15.82 21.0933C15.96 21.7 16.4267 21.9333 16.8 21.9333C20.2067 21.9333 23.6133 19.32 23.6133 14C23.6133 8.67999 20.2067 6.06665 16.8 6.06665Z" fill="#262626"/>
+                            <path d="M11.62 15.6333C9.24 16.52 8.02667 17.8266 8.02667 19.1333C8.02667 20.44 9.24 21.7466 11.62 22.6333C11.8533 22.7266 12.2733 22.26 12.04 22.0266C11.1533 21.1866 10.78 20.16 10.78 19.1333C10.78 18.1066 11.1533 17.08 12.04 16.24C12.2733 15.96 11.8533 15.54 11.62 15.6333Z" fill="#262626"/>
+                            <path d="M11.62 5.4133C9.24 6.29997 8.02667 7.60664 8.02667 8.9133C8.02667 10.22 9.24 11.5266 11.62 12.4133C11.8533 12.5066 12.2733 12.04 12.04 11.8066C11.1533 10.9666 10.78 9.93997 10.78 8.9133C10.78 7.83997 11.1533 6.85997 12.04 6.01997C12.2733 5.78664 11.8533 5.31997 11.62 5.4133Z" fill="#262626"/>
+                            <path d="M16.94 8.07339C16.7533 9.10006 16.4733 11.2467 16.4733 14.0001C16.4733 16.7534 16.7533 18.9001 16.94 19.9267C17.0333 20.5334 17.2667 20.5801 17.64 20.5334C17.8267 20.4867 18.1067 20.4867 18.3867 20.3934C18.6667 20.3467 18.8067 20.2534 18.76 19.7867C18.6667 18.9001 18.6667 9.05339 18.76 8.16672C18.8067 7.70006 18.6667 7.65339 18.3867 7.56006C18.1067 7.51339 17.8733 7.46672 17.64 7.42006C17.2667 7.42006 17.0333 7.46672 16.94 8.07339Z" fill="white"/>
+                        </svg>
+                    </div>
+                </div>
+                <p class="dificuldade">Dificuldade</p>
+            </div>
+            <div class="botoes-adicionais">
+                <div class="botao-limpar">
+                    <span class="material-symbols-outlined limpar">mop</span>
+                </div>
+                <div class="botao-regerar">
+                    <span class="material-symbols-outlined regerar">autorenew</span>
+                </div>
+                <div class="botao-dica">
+                    <span class="material-symbols-outlined dica">lightbulb</span>
+                </div>
+            </div>
+         </div>
+        <div class="malha" style="row-gap: 12px; display: flex; flex-direction: column;">
+            <div class="quadrado1" style="height: 128px; row-gap: 4px; display: flex; flex-direction: column;">
+                <div class="linha1" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio1" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="a1" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="a2" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="a3" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                    <div class="trio2" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="a4" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="a5" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="a6" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                    <div class="trio3" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="a7" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="a8" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="a9" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                </div>
+                <div class="linha2" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio4" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="b1" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="b2" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="b3" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                    <div class="trio5" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="b4" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="b5" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="b6" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                    <div class="trio6" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="b7" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="b8" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="b9" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                </div>
+                <div class="linha3" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio7" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="c1" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="c2" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="c3" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                    <div class="trio8" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="c4" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="c5" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="c6" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                    <div class="trio9" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="c7" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="c8" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="c9" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="quadrado2" style="height: 128px; row-gap: 4px; display: flex; flex-direction: column;">
+                <div class="linha4" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio10" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="d1" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="d2" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="d3" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                    <div class="trio11" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="d4" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="d5" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="d6" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                    <div class="trio12" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="d7" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="d8" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="d9" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                </div>
+                <div class="linha5" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio13" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="e1" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="e2" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="e3" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                        <div class="trio14" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="e4" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="e5" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="e6" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                    <div class="trio15" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="e7" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="e8" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="e9" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                </div>
+                <div class="linha6" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio16" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="f1" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="f2" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="f3" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                    <div class="trio17" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="f4" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="f5" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="f6" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                    <div class="trio18" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="f7" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="f8" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="f9" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="quadrado3" style="height: 128px; row-gap: 4px; display: flex; flex-direction: column;">
+                <div class="linha7" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio19" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="g1" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="g2" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="g3" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                    <div class="trio20" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="g4" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="g5" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="g6" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                    <div class="trio21" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="g7" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="g8" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="g9" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                </div>
+                <div class="linha8" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio22" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="h1" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="h2" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="h3" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                    <div class="trio23" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="h4" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="h5" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="h6" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                    <div class="trio24" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="h7" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="h8" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="h9" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                </div>
+                <div class="linha9" style="height: 40px; padding-left: 93px; padding-right: 93px; gap: 12px; display: flex; flex-direction: row;">
+                    <div class="trio25" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="i1" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="i2" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="i3" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                    <div class="trio26" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="i4" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="i5" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="i6" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                    <div class="trio27" style="width: 128px; height: 40px; gap: 4px; display: flex; flex-direction: row;">
+                        <div class="i7" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="i8" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                        <div class="i9" style="background: #fafafa; border-radius: 8px; box-shadow: 0px 1px 0px 0px #cccccc; width: 40px; height: 40px; align-content: center; text-align: center;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="cronometro">
+                <div class="cronometro2">
+                    <p class="TextoNivel">&nbsp;Muito Difícil</p>
+                    <p class="zeroZero">00:00</p>
+                </div>
+                <div class="btns-adicionais">
+                    <div class="btn-escrever">
+                        <span class="material-symbols-outlined pencil-writing" style="font-size: 30px;">
+                            border_color
+                        </span>
+                    </div>
+                    <div class="btn-desistir">
+                        <span class="material-symbols-outlined logout" style="font-size: 40px;">
+                            logout
+                        </span>
+                    </div>
+                </div>
+                <div class="anotacoes">
+                    <div class="anotacoes1">
+                        <div class="q1">
+                            <input class="anotacoes" type="text" maxlength="1" pattern="[0-9]" oninput="this.value = this.value.replace(/[^0-9]/g,'')">
+                        </div>
+                        <div class="q2">
+                            <input class="anotacoes" type="text" maxlength="1" pattern="[0-9]" oninput="this.value = this.value.replace(/[^0-9]/g,'')">
+                        </div>
+                    </div>
+                    <div class="anotacoes2">
+                        <div class="q3">
+                            <input class="anotacoes" type="text" maxlength="1" pattern="[0-9]" oninput="this.value = this.value.replace(/[^0-9]/g,'')">
+                        </div>
+                        <div class="q4">
+                            <input class="anotacoes" type="text" maxlength="1" pattern="[0-9]" oninput="this.value = this.value.replace(/[^0-9]/g,'')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <script>
+        var painiveis = document.getElementById('niveis')
+        var nivis = document.querySelectorAll('.child')
+        nivis.forEach(child => {
+            child.addEventListener('click', () => {
+                nivis.forEach(c => {
+                    c.style.boxShadow = 'none';
+                });
+                child.style.boxShadow = '0px 4px 5px 0px rgba(0, 0, 0, 50%)'
+                const childId = child.dataset.value;
+                parentDiv.dataset.value = childId;
+            });
+        });
+    </script>
+</body>
+</html>
