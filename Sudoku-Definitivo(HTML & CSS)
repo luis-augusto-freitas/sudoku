@@ -275,15 +275,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            text-align: center;
             width: 32px;
             height: 32px;
             border-radius: 4px;
         }
         input.anotacoes{
+            text-align: center;
             border: 0;
-            border-radius: 3px;
+            padding: 0;
             width: 25px;
-            height: 20px;
+            height: 25px;
         }
     </style>
 </head>
@@ -556,4 +558,3 @@
             </div>
     </div>
 </body>
-</html>
