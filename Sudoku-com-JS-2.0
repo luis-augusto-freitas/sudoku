@@ -577,7 +577,7 @@
     </div>
     <script>
     
-    function Sudokao() {
+    function Sudoku() {
         function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -595,7 +595,7 @@
     );
     return row;
                 }
-        function Sudokinho() {
+       
     var l1 = nextRow()
     var a1 = document.querySelector('.a1').innerHTML = l1[0]
     var b1 = document.querySelector('.b1').innerHTML = l1[1]
@@ -686,41 +686,7 @@
     var g9 = document.querySelector('.g9').innerHTML = l9[6]
     var h9 = document.querySelector('.h9').innerHTML = l9[7]
     var i9 = document.querySelector('.i9').innerHTML = l9[8]
-    }
-    Sudokinho();
-      function temTodosNumeros(arr) {
-          const numeros = arr.map(n => Number(n));
-          return [1,2,3,4,5,6,7,8,9].every(num => 
-              numeros.includes(num)
-          );
       }
-
-      function verificarLinhas() {
-          for(let i = 1; i <= 9; i++) {
-              const linha = Array.from(document.querySelectorAll(`div[id$="${i}"]`))
-                          .map(el => el.innerHTML);
-              if(!temTodosNumeros(linha)) return false;
-          }
-          return true;
-      }
-
-      function verificarColunas() {
-          const letras = ['a','b','c','d','e','f','g','h','i'];
-          for(let letra of letras) {
-              const coluna = Array.from(document.querySelectorAll(`div[id^="${letra}"]`))
-                          .map(el => el.innerHTML);
-              if(!temTodosNumeros(coluna)) return false;
-          }
-          return true;
-      }
-
-      const estaCorreto = verificarLinhas() && verificarColunas();
-
-      const elementos = document.querySelectorAll('div[id^="a"], div[id^="b"], div[id^="c"], div[id^="d"], div[id^="e"], div[id^="f"], div[id^="g"], div[id^="h"], div[id^="i"]');
-      elementos.forEach(elemento => {
-          elemento.style.background = estaCorreto ? "green" : "red";
-      });
-    }
         var painiveis = document.getElementById('niveis')
     function dificuldades () {
         var nivis = document.querySelectorAll('.child')
@@ -767,19 +733,19 @@
     if (num === 0 && painiveis && painiveis.dataset.value != '') {
         cronometro1(); // Só executa na primeira vez
         num++;
-        Sudokao();
+        Sudoku();
     }
 });
     }
     cronometro2();
     }
     cronometro();
-    function regerar () {
-            var regerar = document.querySelector('.btn-regerar');
+    var regerar = document.querySelector('.botao-regerar');
+    if (num === 1) {
         regerar.addEventListener('click', () => {
-        Sudokao();
+            Sudoku();
         });
-    };
+    }
     </script>
 </body>
 </html>
