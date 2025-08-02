@@ -687,22 +687,30 @@
     var h9 = document.querySelector('.h9').innerHTML = l9[7]
     var i9 = document.querySelector('.i9').innerHTML = l9[8]
       }
+        var num = 0;
+        var seg;
+        var min;
+        var nivis = document.querySelectorAll('.child')
         var painiveis = document.getElementById('niveis')
     function dificuldades () {
-        var nivis = document.querySelectorAll('.child')
         nivis.forEach(child => {
-            child.addEventListener('click', () => {
+            function niveis () {
                 nivis.forEach(c => {
                     c.style.boxShadow = 'none';
                 });
                 child.style.boxShadow = '0px 4px 5px 0px rgba(0, 0, 0, 50%)'
                 const childId = child.dataset.value;
                 painiveis.dataset.value = childId;
-            });
+            }
+            if (num == 0){
+                child.addEventListener('click', niveis);
+            }
+            else {
+                child.removeEventListener('click', niveis);
+            }
         });
     }
     dificuldades();
-    var num;
     function cronometro () {
     function cronometro1 () {
         // Pega referências aos elementos
@@ -710,8 +718,8 @@
     var elMin = document.querySelector('.min');
   
     // Usa variáveis numéricas separadas
-    var seg = 0;
-    var min = 0;
+    seg = 0;
+    min = 0;
   
     setInterval(() => {
       seg++;
@@ -728,7 +736,6 @@
     }
     function cronometro2 () {
     var gerar = document.querySelector('.btn-gerar');
-    num = 0;
     gerar.addEventListener('click', () => {
     if (num === 0 && painiveis && painiveis.dataset.value != '') {
         cronometro1(); // Só executa na primeira vez
@@ -741,11 +748,14 @@
     }
     cronometro();
     var regerar = document.querySelector('.botao-regerar');
-    if (num === 1) {
         regerar.addEventListener('click', () => {
+        if (num == 1) {
+            seg = -1;
+            min = 0;
             Sudoku();
+        }
         });
-    }
+    
     </script>
 </body>
 </html>
